@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app.login">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<link rel="stylesheet" type="text/css" href="./vendor/css/bootstrap.min.css">
+	<script type="text/javascript" src="./vendor/js/angular.min.js"></script>
+	<script type="text/javascript" src="./vendor/js/jquery.min.js"></script>
+
+	<script type="text/javascript" src="./vendor/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./scripts/app.js"></script>
+	<link rel="stylesheet" type="text/css" href="./styles/index.css">
+</head>
+<body class="container">
+	<div ng-controller="loginController">
+		{{user.username}}
+	</div>
+	<script type="text/javascript">
+		angular.module('app.login', [])
+			.controller('loginController', ['$scope','$http', function($scope,$http){
+				var promise = $http.post('http://localhost/hrm/loginCheck',{
+					loginname:'skp',
+					password:'asdf'
+				})
+				$scope.user={name:'zhangsan'};
+				promise.then(function(res){
+					if(res.data.status=="ok"){
+						$scope.user=res.data.user;
+						console.log(res);
+					}
+				},function(res){
+
+				})
+
+			}])
+	</script>
+</body>
+</html>
